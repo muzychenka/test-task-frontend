@@ -8,6 +8,10 @@ const props = defineProps<{
     selectedCount: number
 }>()
 
+const emit = defineEmits<{
+    remove: [number]
+}>()
+
 const itemsStore = useItemsStore()
 
 const selectedLabel = computed(() => `${props.selectedCount} / ${MAX_SELECTED_CART_ITEMS}`)
@@ -20,6 +24,7 @@ const selectedLabel = computed(() => `${props.selectedCount} / ${MAX_SELECTED_CA
                 v-for="item of itemsStore.selectedFromCart"
                 :key="item.id"
                 :name="item.name"
+                @click="emit('remove', item.id)"
             />
         </div>
         <div class="cart-preview-block__selected-count">selected: {{ selectedLabel }}</div>

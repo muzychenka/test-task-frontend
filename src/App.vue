@@ -10,12 +10,21 @@ const itemsStore = useItemsStore()
 <template>
     <main class="app">
         <div class="app__previews-wrapper">
-            <cart-preview-block :selected-count="itemsStore.selectFromCart.length" />
-            <item-preview-block name="" />
+            <cart-preview-block
+                :selected-count="itemsStore.selectedFromCart.length"
+                @remove="(id) => itemsStore.removeFromCartSelection(id)"
+            />
+            <item-preview-block :name="itemsStore.selectedPreview?.name || 'Please select smth'" />
         </div>
         <div class="app__previews-wrapper">
-            <showcase-block />
-            <showcase-block />
+            <showcase-block
+                :items="itemsStore.normalizedCartItems"
+                @select="(id) => itemsStore.selectFromCart(id)"
+            />
+            <showcase-block
+                :items="itemsStore.normalizedItems"
+                @select="(id) => itemsStore.selectForPreview(id)"
+            />
         </div>
     </main>
 </template>
@@ -35,5 +44,6 @@ const itemsStore = useItemsStore()
     display: flex;
     justify-content: space-between;
     flex: 1;
+    gap: 1.5rem;
 }
 </style>

@@ -15,6 +15,7 @@ defineProps<{
 
 <style scoped>
 .small-item-preview {
+    text-align: center;
     border: 0.2rem solid #000;
     padding: 0.25rem;
     cursor: pointer;

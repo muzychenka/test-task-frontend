@@ -1,3 +1,4 @@
+import { MAX_SELECTED_CART_ITEMS } from '@/constants/limitations'
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 
@@ -89,10 +90,16 @@ export const useItemsStore = defineStore('items', () => {
         items.value.filter((item) => selectedPreview.value?.id !== item.id)
     )
 
-    function selectFromCart(ids: number[]) {
-        for (const id of ids) {
-            selectedFromCart.value.push(items.value.find((item) => item.id === id)!)
+    function selectFromCart(id: number) {
+        if (selectedFromCart.value.length < MAX_SELECTED_CART_ITEMS) {
+            selectedFromCart.value.push(cartItems.value.find((item) => item.id === id)!)
+        } else {
+            alert(`You've reached the limit of ${MAX_SELECTED_CART_ITEMS}`)
         }
+    }
+
+    function removeFromCartSelection(id: number) {
+        selectedFromCart.value = selectedFromCart.value.filter((item) => item.id !== id)
     }
 
     function selectForPreview(id: number) {
@@ -109,6 +116,7 @@ export const useItemsStore = defineStore('items', () => {
         normalizedItems,
 
         selectFromCart,
-        selectForPreview
+        selectForPreview,
+        removeFromCartSelection
     }
 })
