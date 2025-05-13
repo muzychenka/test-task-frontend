@@ -14,7 +14,10 @@ const itemsStore = useItemsStore()
                 :selected-count="itemsStore.selectedFromCart.length"
                 @remove="(id) => itemsStore.removeFromCartSelection(id)"
             />
-            <item-preview-block :name="itemsStore.selectedPreview?.name || 'Please select smth'" />
+            <item-preview-block
+                :name="itemsStore.selectedPreview?.name"
+                @remove="() => itemsStore.removeFromPreview()"
+            />
         </div>
         <div class="app__previews-wrapper">
             <showcase-block
@@ -38,6 +41,7 @@ const itemsStore = useItemsStore()
     justify-content: center;
     flex-direction: column;
     gap: 1.5rem;
+    padding: 1rem;
 }
 
 .app__previews-wrapper {

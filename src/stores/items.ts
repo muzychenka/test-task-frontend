@@ -106,6 +106,10 @@ export const useItemsStore = defineStore('items', () => {
         selectedPreview.value = items.value.find((item) => item.id === id)!
     }
 
+    function removeFromPreview() {
+        selectedPreview.value = undefined
+    }
+
     return {
         items,
         cartItems,
@@ -117,6 +121,7 @@ export const useItemsStore = defineStore('items', () => {
 
         selectFromCart,
         selectForPreview,
-        removeFromCartSelection
+        removeFromCartSelection,
+        removeFromPreview
     }
 })
